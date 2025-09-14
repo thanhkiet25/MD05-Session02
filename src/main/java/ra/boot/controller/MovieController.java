@@ -64,17 +64,22 @@ Movie movie = movieService.addMovie(movieDto);
         }
     }
 
-    @GetMapping("update")
-    public String update(Model model) {
-        model.addAttribute("movie", new MovieDto());
-        return "updateMovie";
+    @GetMapping("/updataMovie/{id}")
+    public String update(@PathVariable Long id, Model model) {
+    Movie movie = movieService.findById(id);
+    if (movie == null) {
+        return "redirect:/movies";
+    }
+    MovieDto movieDto = toDto(movie);
+        model.addAttribute("movie", movieDto);
+        return "updataMovie";
     }
 
-    @PostMapping("updata")
+    @PostMapping("/updataMovie/{id}")
     public String handleUpdata(@Valid @ModelAttribute("movies")MovieDto movieDto,@PathVariable("id") Long id, BindingResult bindingResult,RedirectAttributes redirectAttributes,Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("movie", movieDto);
-            return "updateMovie";
+            return "updataMovie";
         }
         Movie movie = movieService.updateMovie(movieDto,id);
         if (movie != null) {
@@ -83,7 +88,7 @@ Movie movie = movieService.addMovie(movieDto);
         }else {
             model.addAttribute("message", " update movie fail");
             model.addAttribute("movie", movieDto);
-            return "updateMovie";
+            return "updataMovie";
         }
     }
 
@@ -98,5 +103,14 @@ Movie movie = movieService.addMovie(movieDto);
            return "redirect:/movies";
 
         }
+    }
+    private MovieDto toDto(Movie movie) {
+        MovieDto dto = new MovieDto();
+        dto.setId(movie.getId());
+        dto.setTitle(movie.getTitle());
+        dto.setDirector(movie.getDirector());
+        dto.setReleaseDate(movie.getReleaseDate());
+        dto.setRating(movie.getRating());
+        return dto;
     }
 }

@@ -97,7 +97,7 @@
             <td>${movie.releaseDate}</td>
             <td>${movie.rating}</td>
             <td class="updata">
-                <a href="/movies/updata/${movie.id}" >Cập nhật</a>
+                <a href="/movies/updataMovie/${movie.id}" >Cập nhật</a>
                 <a href="/movies/delete/${movie.id}">Xóa</a>
             </td>
         </tr>

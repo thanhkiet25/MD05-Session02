@@ -9,13 +9,12 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class MovieDto {
-private Long    id;
+public class MovieDtoUpdata {
+    private Long id;
     @NotBlank
     private String title;
     @NotBlank
